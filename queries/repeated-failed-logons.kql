@@ -1,0 +1,10 @@
+SecurityEvent
+| where Computer == "DC01.corp.cyberlab.test"
+| where EventID == 4625
+| where TimeGenerated > ago(1h)
+| summarize FailedLogons=count(),
+            FirstAttempt=min(TimeGenerated),
+            LastAttempt=max(TimeGenerated)
+            by Account, IpAddress
+| where FailedLogons >= 3
+| order by FailedLogons desc
