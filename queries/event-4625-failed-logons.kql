@@ -1,0 +1,5 @@
+SecurityEvent
+| where Computer == "DC01.corp.cyberlab.test"
+| where EventID == 4625
+| project TimeGenerated, Account, IpAddress, LogonType, FailureReason, Activity
+| order by TimeGenerated desc
