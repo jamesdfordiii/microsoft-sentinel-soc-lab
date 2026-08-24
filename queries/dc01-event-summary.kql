@@ -1,0 +1,5 @@
+SecurityEvent
+| where Computer == "DC01.corp.cyberlab.test"
+| where TimeGenerated > ago(3h)
+| summarize Count=count() by EventID, Activity
+| order by Count desc
