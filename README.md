@@ -154,6 +154,14 @@ The failed-logon events in this project were intentionally generated in a contro
 - Failed-logon detection logic
 - Basic SOC investigation workflow
 
+## What I Learned
+
+- **A SIEM investigation starts with trustworthy telemetry.** Before analyzing an alert, I first had to verify that the Windows Security Events were actually reaching Log Analytics from the expected host. Ingestion validation is part of the investigation, not just setup.
+- **One Windows Event ID is context, not a complete verdict.** Event ID 4625 identifies a failed logon, but account, source IP, logon type, failure reason, timing, and surrounding activity are what make the event useful to an analyst.
+- **KQL turns raw logs into an investigation narrative.** Filtering and summarizing events by host, Event ID, account, IP address, and time window made it possible to move from thousands of records to a specific authentication pattern.
+- **Detection logic requires a behavioral threshold.** A single failed logon is common and usually not meaningful by itself. Grouping repeated failures within a defined time window creates a more useful signal for triage while also showing why thresholds must be tuned to the environment.
+- **The core SOC workflow is a repeatable loop.** This project reinforced the path from telemetry collection → ingestion verification → query and analysis → detection condition → analyst judgment. The SIEM surfaces evidence, but the analyst still determines whether the activity matters and what should happen next.
+
 ## Key Takeaway
 
 The project moved beyond simply deploying a SIEM. It demonstrated the full path from **telemetry collection → ingestion verification → log querying → authentication investigation → detection logic**, providing hands-on experience with the same core workflow used in security operations environments.
